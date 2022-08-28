@@ -1,91 +1,61 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
+import Snoowrap from "snoowrap";
+import { ref } from "@vue/runtime-dom";
+
+const r = new Snoowrap({
+  userAgent: import.meta.env.VITE_USER_AGENT,
+  clientId: import.meta.env.VITE_CLIENT_ID,
+  clientSecret: import.meta.env.VITE_CLIENT_SECRET,
+  refreshToken: import.meta.env.VITE_REFRESH_TOKEN,
+});
+
+const authenticationUrl = Snoowrap.getAuthUrl({
+  clientId: import.meta.env.VITE_CLIENT_ID,
+  scope: ["identity", "history", "edit", "account", "save", "read"],
+  redirectUri: import.meta.env.VITE_REDIRECT_URI,
+  permanent: false,
+});
+
+function goToAuthPage() {
+  window.location.href = authenticationUrl;
+}
+
+const code = new URLSearchParams(window.location.search).get("code");
+
+if (code) {
+  localStorage.setItem("code", code);
+}
+
+function goToSomeMoreUrl() {
+  const requester = Snoowrap.fromAuthCode({
+    code: localStorage.getItem("code")!,
+    userAgent: import.meta.env.VITE_USER_AGENT,
+    clientSecret: import.meta.env.VITE_CLIENT_SECRET,
+    clientId: import.meta.env.VITE_CLIENT_ID,
+    redirectUri: import.meta.env.VITE_REDIRECT_URI,
+  });
+}
+
+function getHot() {
+  r.getHot().then((data) => {
+    console.log(data);
+    hot.value = data;
+  });
+}
+
+const hot: any = ref([{ data: "" }, { data: "" }]);
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <button @click="goToAuthPage">auth</button>
+  <button @click="goToSomeMoreUrl">get posts</button>
+  <button @click="getHot">get hot</button>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div v-for="hotItem in hot">1</div>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <!-- <RouterView /> -->
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+<style scoped></style>
