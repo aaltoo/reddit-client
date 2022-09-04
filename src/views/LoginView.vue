@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <button @click="goToAuthPage">auth</button>
   </div>
 </template>
@@ -50,9 +50,28 @@ function goToAuthPage() {
 }
 
 if (localStorage.getItem("refresh_token")!) {
-  console.log(localStorage.getItem("refresh_token")!);
   router.push("/");
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #ff4500;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+</style>
