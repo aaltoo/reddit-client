@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import("../views/HomeView.vue"),
     },
     {
+      path: "/r/:subredditId/comments/:postId/:postTitle?",
+      name: "comment",
+      component: () => import("../views/CommentView.vue"),
+    },
+    {
       path: "/auth",
       children: [
         {
