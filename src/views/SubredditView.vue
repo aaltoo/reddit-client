@@ -1,14 +1,12 @@
 <template>
-  <router-link :to="`${post.permalink}`" v-for="post in posts" :key="post.id">
-    <h1>{{ post.subreddit.display_name }}</h1>
-    <h2>{{ post.title }}</h2>
-  </router-link>
+  <PostPreview v-for="post in posts" :key="post.id" :post="post" />
 </template>
 
 <script setup lang="ts">
 import { requester } from "@/api/requester";
 import { ref, type Ref } from "vue";
 import { useRoute } from "vue-router";
+import PostPreview from "../components/PostPreview.vue";
 
 const route = useRoute();
 const posts: Ref<any> = ref([]);
@@ -22,4 +20,10 @@ function getSubredditHot() {
 route.params.subredditName && getSubredditHot();
 </script>
 
-<style scoped></style>
+<style scoped>
+.preview {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+</style>
