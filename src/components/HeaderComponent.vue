@@ -1,27 +1,32 @@
 <template>
-  <header class="header">
+  <header
+    class="w-full h-14 flex justify-between items-center px-5 bg-gray-200"
+  >
     <p>Reddit</p>
-    <button @click="logout">Выйти</button>
+    <img :src="me.icon_img" alt="avatar" class="w-10 rounded-full" />
+    <!-- <button @click="logout">Выйти</button> -->
   </header>
 </template>
 
 <script setup lang="ts">
+import { requester } from "@/api/requester";
 import router from "@/router";
+import { ref, type Ref } from "vue";
+
+const me: Ref<any> = ref({});
 
 function logout() {
   localStorage.removeItem("refresh_token");
   router.push("/auth/login");
 }
+
+function getMe() {
+  requester.getMe().then((data) => {
+    me.value = data;
+  });
+}
+
+getMe();
 </script>
 
-<style scoped>
-.header {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: antiquewhite;
-  color: black;
-}
-</style>
+<style scoped></style>

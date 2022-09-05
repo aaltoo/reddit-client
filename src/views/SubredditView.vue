@@ -1,12 +1,12 @@
 <template>
-  <PostPreview v-for="post in posts" :key="post.id" :post="post" />
+  <PostPreviewComponent v-for="post in posts" :key="post.id" :post="post" />
 </template>
 
 <script setup lang="ts">
 import { requester } from "@/api/requester";
 import { ref, type Ref } from "vue";
 import { useRoute } from "vue-router";
-import PostPreview from "../components/PostPreview.vue";
+import PostPreviewComponent from "../components/PostPreviewComponent.vue";
 
 const route = useRoute();
 const posts: Ref<any> = ref([]);
