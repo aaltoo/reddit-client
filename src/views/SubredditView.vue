@@ -1,4 +1,9 @@
 <template>
+  <div class="flex flex-col items-center">
+    <img :src="subredditImg" alt="" class="w-screen" />
+    <h1>{{ subredditName }}</h1>
+    <h2>{{ subredditTitle }}</h2>
+  </div>
   <PostPreviewComponent v-for="post in posts" :key="post.id" :post="post" />
 </template>
 
@@ -10,6 +15,21 @@ import PostPreviewComponent from "../components/PostPreviewComponent.vue";
 
 const route = useRoute();
 const posts: Ref<any> = ref([]);
+const subredditName: Ref<string> = ref("");
+const subredditImg: Ref<string> = ref("");
+const subredditTitle: Ref<string> = ref("");
+
+async function getSubreddit() {
+  subredditName.value = await requester.getSubreddit(
+    `${route.params.subredditName}`
+  ).display_name;
+  subredditImg.value = await requester.getSubreddit(
+    `${route.params.subredditName}`
+  ).banner_img;
+  subredditTitle.value = await requester.getSubreddit(
+    `${route.params.subredditName}`
+  ).title;
+}
 
 function getSubredditHot() {
   requester.getHot(`${route.params.subredditName}`).then((data) => {
@@ -18,12 +38,7 @@ function getSubredditHot() {
 }
 
 route.params.subredditName && getSubredditHot();
+route.params.subredditName && getSubreddit();
 </script>
 
-<style scoped>
-.preview {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-}
-</style>
+<style scoped></style>
