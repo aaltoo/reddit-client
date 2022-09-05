@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1>{{ comment.subreddit.display_name }}</h1>
+    <router-link :to="`/${comment.subreddit_name_prefixed}`">{{
+      comment.subreddit.display_name
+    }}</router-link>
     <h2>{{ comment.title }}</h2>
     <img
       :src="comment.preview.images[0].source.url"
@@ -22,11 +24,15 @@ const route = useRoute();
 function getComment() {
   requester.getContentByIds([`t3_${route.params.postId}`]).then((data) => {
     comment.value = data[0];
-    console.log(data);
   });
 }
 
 route.params.postId && getComment();
 </script>
 
-<style scoped></style>
+<style scoped>
+img {
+  height: 500px;
+  object-fit: contain;
+}
+</style>
