@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import WindiCSS from "vite-plugin-windicss";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import dynamicImportVars from "@rollup/plugin-dynamic-import-vars";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,19 +18,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      output: {
-        manualChunks: {
-          "group-home": ["src/views/HomeView.vue"],
-          "group-auth": [
-            "./src/views/LoginView.vue",
-            "./src/views/CallbackView.vue",
-          ],
-          "group-subreddit": [
-            "./src/views/SubredditView.vue",
-            "./src/views/SubmissionView.vue",
-          ],
-        },
-      },
+      plugins: [dynamicImportVars()],
     },
   },
 });
