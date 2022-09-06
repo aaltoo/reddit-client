@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.10",
     "axios": "^0.27.2",
     "pinia": "^2.0.17",
     "snoowrap": "^1.23.0",
