@@ -12,4 +12,7 @@ export default defineConfig({
       url: "url",
     },
   },
+  define: {
+    "process.env": {},
+  },
 });
