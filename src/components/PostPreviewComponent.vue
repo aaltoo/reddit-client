@@ -1,7 +1,6 @@
 <template>
   <div class="w-120 bg-gray-200 p-3 rounded-xl my-2">
     <router-link :to="`${post.permalink}`">
-      <img src="{{post.}}" alt="" />
       <h1>{{ post.subreddit.display_name }}</h1>
       <h2>{{ post.title }}</h2>
       <img
