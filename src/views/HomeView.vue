@@ -1,9 +1,29 @@
+<template>
+  <SidebarComponent />
+  <div class="flex justify-center items-center flex-col mx-3">
+    <PostPreviewComponent
+      v-for="hotPost in hot"
+      :key="hotPost.id"
+      :post="hotPost"
+    ></PostPreviewComponent>
+  </div>
+</template>
+
 <script setup lang="ts">
-import TheWelcome from "@/components/TheWelcome.vue";
+import PostPreviewComponent from "@/components/PostPreviewComponent.vue";
+import { requester } from "@/api/requester";
+import { type Ref, ref } from "vue";
+import SidebarComponent from "../components/SidebarComponent.vue";
+
+const hot: Ref<any> = ref([]);
+
+function getHot() {
+  requester.getHot().then((data) => {
+    hot.value = data;
+  });
+}
+
+getHot();
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style scoped></style>
