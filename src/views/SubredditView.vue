@@ -4,12 +4,14 @@
     <h1>{{ subredditName }}</h1>
     <h2>{{ subredditTitle }}</h2>
   </div>
-  <PostPreviewComponent v-for="post in posts" :key="post.id" :post="post" />
+  <div class="mx-3 flex flex-col items-center">
+    <PostPreviewComponent v-for="post in posts" :key="post.id" :post="post" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { requester } from "@/api/requester";
-import { ref, type Ref } from "vue";
+import { ref, watch, type Ref } from "vue";
 import { useRoute } from "vue-router";
 import PostPreviewComponent from "../components/PostPreviewComponent.vue";
 
@@ -18,6 +20,10 @@ const posts: Ref<any> = ref([]);
 const subredditName: Ref<string> = ref("");
 const subredditImg: Ref<string> = ref("");
 const subredditTitle: Ref<string> = ref("");
+
+watch(route, () => {
+  getSubreddit();
+});
 
 async function getSubreddit() {
   subredditName.value = await requester.getSubreddit(
