@@ -1,5 +1,5 @@
 <template>
-  <div class="w-7/12">
+  <div class="w-full md:w-7/12 px-3 md:px-0">
     <div v-if="submission">
       <router-link :to="`/${submission.subreddit_name_prefixed}`">{{
         submission.subreddit.display_name

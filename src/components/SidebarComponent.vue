@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute left-0 top-16 p-3 bg-gray-200 rounded-lg">
+  <div class="left-0 top-16 p-3 bg-gray-200 rounded-lg fixed hidden md:block">
     <router-link
       :to="subscription.url"
       v-for="subscription in subscriptions"

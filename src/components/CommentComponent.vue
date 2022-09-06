@@ -1,5 +1,5 @@
 <template>
-  <li class="bg-gray-200 my-2 py-3 pl-3" @click="toggleReplies">
+  <li class="bg-gray-200 my-2 py-3 pl-3 rounded-md" @click="toggleReplies">
     <span class="flex justify-between items-center">
       <span>
         <p>{{ comment.author.name }}</p>
@@ -9,7 +9,7 @@
       <img
         v-if="!areRepliesCollapsed && comment.replies.length"
         src="@/assets/icons/chevron-down.svg"
-        class="w-6 h-6"
+        class="w-6 h-6 mr-2"
       />
     </span>
     <span v-if="comment.replies && areRepliesCollapsed">

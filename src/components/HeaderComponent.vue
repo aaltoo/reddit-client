@@ -1,11 +1,12 @@
 <template>
   <header
-    class="w-full h-14 flex justify-between items-center px-5 bg-gray-200"
+    class="w-full h-14 flex justify-between items-center px-5 bg-gray-200 fixed top-0 z-10"
   >
-    <p>Reddit</p>
+    <router-link to="/">Reddit</router-link>
     <img :src="me.icon_img" alt="avatar" class="w-10 rounded-full" />
     <!-- <button @click="logout">Выйти</button> -->
   </header>
+  <div class="mb-14"></div>
 </template>
 
 <script setup lang="ts">

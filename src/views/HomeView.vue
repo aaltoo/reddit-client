@@ -1,7 +1,6 @@
 <template>
-  <HeaderComponent />
   <SidebarComponent />
-  <div>
+  <div class="flex justify-center items-center flex-col mx-3">
     <PostPreviewComponent
       v-for="hotPost in hot"
       :key="hotPost.id"
@@ -11,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from "../components/HeaderComponent.vue";
 import PostPreviewComponent from "@/components/PostPreviewComponent.vue";
 import { requester } from "@/api/requester";
 import { type Ref, ref } from "vue";
