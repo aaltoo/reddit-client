@@ -105,7 +105,6 @@
 <script setup lang="ts">
 import { requester } from "@/api/requester";
 import { ref } from "vue";
-import "vue-awesome/icons/flag";
 
 const props = defineProps({
   post: {

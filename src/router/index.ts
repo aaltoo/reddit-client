@@ -16,7 +16,7 @@ const router = createRouter({
     {
       path: "/r/:subredditName/comments/:postId/:postTitle?",
       name: "comment",
-      component: () => import("../views/CommentView.vue"),
+      component: () => import("../views/SubmissionView.vue"),
     },
     {
       path: "/auth",
