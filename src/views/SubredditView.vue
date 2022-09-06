@@ -1,9 +1,13 @@
 <template>
   <div class="flex flex-col items-center">
     <img :src="subredditImg" alt="" class="w-screen" />
-    <h1>{{ subredditName }}</h1>
-    <h2>{{ subredditTitle }}</h2>
-    <button class="rounded-xl bg-gray-200 px-4 py-1">{{}}</button>
+    <h1 class="text-xl">{{ posts[0].subreddit_name_prefixed }}</h1>
+    <button
+      class="rounded-xl bg-gray-200 px-4 py-1"
+      @click="isSubscribed ? leaveSubreddit() : joinSubreddit()"
+    >
+      {{ isSubscribed ? "unsubscribe" : "subscribe" }}
+    </button>
   </div>
   <div class="mx-3 flex flex-col items-center">
     <PostPreviewComponent v-for="post in posts" :key="post.id" :post="post" />
@@ -18,9 +22,7 @@ import PostPreviewComponent from "../components/PostPreviewComponent.vue";
 
 const route = useRoute();
 const posts: Ref<any> = ref([]);
-const subredditName: Ref<string> = ref("");
 const subredditImg: Ref<string> = ref("");
-const subredditTitle: Ref<string> = ref("");
 const isSubscribed: Ref<boolean> = ref(false);
 
 watch(route, () => {
@@ -28,15 +30,12 @@ watch(route, () => {
 });
 
 async function getSubreddit() {
-  subredditName.value = await requester.getSubreddit(
-    `${route.params.subredditName}`
-  ).display_name;
   subredditImg.value = await requester.getSubreddit(
     `${route.params.subredditName}`
   ).banner_img;
-  subredditTitle.value = await requester.getSubreddit(
+  isSubscribed.value = await requester.getSubreddit(
     `${route.params.subredditName}`
-  ).title;
+  ).user_is_subscriber;
 }
 
 function getSubredditHot() {
@@ -50,7 +49,16 @@ function joinSubreddit() {
     .getSubreddit(`${route.params.subredditName}`)
     .subscribe()
     .then(() => {
-      console.log("Joined subreddit");
+      isSubscribed.value = true;
+    });
+}
+
+function leaveSubreddit() {
+  requester
+    .getSubreddit(`${route.params.subredditName}`)
+    .unsubscribe()
+    .then(() => {
+      isSubscribed.value = false;
     });
 }
 

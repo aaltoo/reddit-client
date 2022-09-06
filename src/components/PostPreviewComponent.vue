@@ -1,7 +1,12 @@
 <template>
   <div class="w-full md:w-7/12 bg-gray-200 p-3 rounded-xl my-2">
     <router-link :to="`${post.permalink}`">
-      <h1>{{ post.subreddit.display_name }}</h1>
+      <span class="flex gap-2">
+        <h1>{{ post.subreddit.display_name }}</h1>
+        <router-link :to="`/u/${post.author.name}`"
+          >u/{{ post.author.name }}</router-link
+        >
+      </span>
       <h2>{{ post.title }}</h2>
       <img
         :src="post.preview.images[0].source.url"
