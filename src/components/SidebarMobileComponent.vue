@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-screen h-screen bg-gray-200 block md:hidden fixed top-0 duration-300 transform-gpu"
+    class="w-screen h-screen bg-gray-200 block md:hidden fixed top-14 duration-300 transform-gpu"
     :class="{ '-translate-x-full': !isActive }"
   >
     <ul class="flex justify-center flex-col mx-3">

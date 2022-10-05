@@ -6,9 +6,8 @@
         <p>{{ comment.body }}</p>
         <p>{{ comment.ups }}</p>
       </span>
-      <img
+      <ChevronDownIcon
         v-if="!areRepliesCollapsed && comment.replies.length"
-        src="@/assets/icons/chevron-down.svg"
         class="w-6 h-6 mr-2"
       />
     </span>
@@ -22,6 +21,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { ChevronDownIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
   comment: {

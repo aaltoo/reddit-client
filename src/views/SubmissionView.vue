@@ -38,7 +38,6 @@ function getSubmission() {
     .expandReplies({ limit: 10 })
     .then((data) => {
       submission.value = data;
-      console.log(data);
     });
 }
 

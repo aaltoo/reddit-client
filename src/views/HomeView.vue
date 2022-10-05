@@ -1,6 +1,6 @@
 <template>
   <SidebarComponent />
-  <div class="flex justify-center items-center flex-col mx-3">
+  <div class="flex justify-center items-center flex-col mx-3" v-if="hot.length">
     <PostPreviewComponent
       v-for="hotPost in hot"
       :key="hotPost.id"
